@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MySpace Simulator</title>
+<style>
+    body {
+        font-family: "Tahoma", sans-serif;
+        background-color: #003366;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: #000033;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 3px solid #ffcc00;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 28px;
+        color: #ffcc00;
+    }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+    .profile, .friends, .comments {
+        background-color: #001f4d;
+        border: 2px solid #ffcc00;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+    }
+    .profile {
+        flex: 1 1 250px;
+        max-width: 300px;
+    }
+    .profile img {
+        width: 100%;
+        border: 2px solid #ffcc00;
+    }
+    .friends {
+        flex: 1 1 250px;
+        max-width: 300px;
+    }
+    .friends img {
+        width: 60px;
+        height: 60px;
+        border: 1px solid #ffcc00;
+        margin: 5px;
+    }
+    .comments {
+        flex: 2 1 500px;
+    }
+    .comment {
+        background-color: #002b80;
+        padding: 5px;
+        margin-bottom: 5px;
+        border-radius: 3px;
+    }
+    input, textarea, button {
+        width: 100%;
+        margin-top: 5px;
+        padding: 5px;
+        border: none;
+        border-radius: 3px;
+    }
+    button {
+        background-color: #ffcc00;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #ffdd33;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1 id="profileName">MySpace User</h1>
+</header>
+
+<div class="container">
+    <!-- Profile Section -->
+    <div class="profile">
+        <img id="profilePic" src="https://via.placeholder.com/300x300.png?text=Profile+Pic" alt="Profile Picture">
+        <h3>About Me</h3>
+        <p id="aboutMe">This is my cool MySpace profile!</p>
+        <h4>Edit Profile</h4>
+        <input type="text" id="nameInput" placeholder="Enter name">
+        <input type="text" id="picInput" placeholder="Profile picture URL">
+        <textarea id="aboutInput" placeholder="About me"></textarea>
+        <button onclick="updateProfile()">Update Profile</button>
+    </div>
+
+    <!-- Friends Section -->
+    <div class="friends">
+        <h3>Top Friends</h3>
+        <div id="friendsList">
+            <img src="https://via.placeholder.com/60" alt="Friend 1">
+            <img src="https://via.placeholder.com/60" alt="Friend 2">
+            <img src="https://via.placeholder.com/60" alt="Friend 3">
+            <img src="https://via.placeholder.com/60" alt="Friend 4">
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments">
+        <h3>Comments</h3>
+        <div id="commentSection"></div>
+        <h4>Leave a Comment</h4>
+        <input type="text" id="commentName" placeholder="Your name">
+        <textarea id="commentText" placeholder="Write a comment..."></textarea>
+        <button onclick="addComment()">Post Comment</button>
+    </div>
+</div>
+
+<script>
+    // Update profile info
+    function updateProfile() {
+        const name = document.getElementById("nameInput").value.trim();
+        const pic = document.getElementById("picInput").value.trim();
+        const about = document.getElementById("aboutInput").value.trim();
+
+        if (name) document.getElementById("profileName").textContent = name;
+        if (pic) document.getElementById("profilePic").src = pic;
+        if (about) document.getElementById("aboutMe").textContent = about;
+    }
+
+    // Add a comment
+    function addComment() {
+        const name = document.getElementById("commentName").value.trim();
+        const text = document.getElementById("commentText").value.trim();
+
+        if (!name || !text) {
+            alert("Please enter both name and comment.");
+            return;
+        }
+
+        const commentDiv = document.createElement("div");
+        commentDiv.classList.add("comment");
+        commentDiv.innerHTML = `<strong>${name}:</strong> ${text}`;
+
+        document.getElementById("commentSection").prepend(commentDiv);
+
+        // Clear inputs
+        document.getElementById("commentName").value = "";
+        document.getElementById("commentText").value = "";
+    }
+</script>
+
+</body>
+</html>
